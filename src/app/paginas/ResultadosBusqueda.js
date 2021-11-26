@@ -1,10 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Resultados from '../componentes/Resultados';
+import * as PeliculasService from '../servicios/PeliculasService'
 import '../estilos/resultados-busqueda.css';
 
 export default function ResultadosBusqueda(){
     const [busqueda, setBusqueda] = useState('');
     const [resultados, setResultados] = useState([]);
+
+    /*
+        1. SIEMPRE SE EJECUTA UNA VEZ -> Montaje del Componente.
+        2. POR CADA CAMBIO DE ESTADO, DESPUÉS DE RENDERIZAR SE EJECUTA -> Actualiza.
+        3. ADICIONAR UN RETURN -> DESMONTAJE
+    */
+    useEffect(()=>{
+        if(busqueda.length >= 4){
+            PeliculasService.servicioBusquedaTitulo(busqueda)
+                .then(function(resultadosBusqueda){
+                    setResultados(resultadosBusqueda.data);
+                });
+        }
+        else{
+            setResultados([]);
+        }
+    }, [busqueda]);
     
     function handleSubmit(evento){
         evento.preventDefault();
@@ -12,8 +30,6 @@ export default function ResultadosBusqueda(){
 
     function handleChange(evento){
         let tituloPelicula = evento.target.value;
-        let resultadosBusqueda = new Array(tituloPelicula.length).fill(0);
-        setResultados(resultadosBusqueda);
         setBusqueda(tituloPelicula);
     }
 
@@ -33,7 +49,7 @@ export default function ResultadosBusqueda(){
                     <div><span>Mostrando resultado para: {busqueda}</span></div>
                     <div className="dv-resultados">
                         {resultados && resultados.length > 0 && resultados.map(pelicula => (
-                            <Resultados />
+                            <Resultados pelicula={pelicula} />
                         ))}   
                     </div>
                 </fieldset>

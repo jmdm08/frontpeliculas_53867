@@ -1,34 +1,31 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStarHalfAlt } from '@fortawesome/free-solid-svg-icons';
+import { useHistory } from 'react-router';
 import '../estilos/resultados.css'
 
 export default function Resultados(props){
+    let history = useHistory();
 
     function handleClick(evento){
-        evento.preventDefault();
-        evento.stopPropagation();
-        alert("Redireccionar al detalle de la película");
-    }
-
-    function handleClickImg(evento){
-        evento.stopPropagation();
-        alert("Click en la imagen");
+       history.push("/detalle/" + props.pelicula._id); 
     }
 
     return (
         <>
             <div className="dv-pelicula" onClick={handleClick}>
                 <div className="dv-poster">
-                    <img onClick={handleClickImg} src="https://cl.buscafs.com/www.tomatazos.com/public/uploads/images/127763/127763.png"></img>
+                    <img alt="Póster" src={props.pelicula.poster}></img>
                 </div>
                 <div>
-                    <h1>TÍTULO PELÍCULA</h1>
+                    <h1>{props.pelicula.titulo}</h1>
                 </div>
                 <div>
-                    <p>SINOPSIS</p>
+                    <p>{props.pelicula.sinopsis}</p>
                 </div>
                 <div>
                     <span>
-                        RATING:
-                        <i></i>
+                        <FontAwesomeIcon icon={faStarHalfAlt} />
+                        {props.pelicula.rating}
                     </span>
                 </div>
             </div>   

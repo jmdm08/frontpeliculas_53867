@@ -1,0 +1,1 @@
+export const URL_API_PELICULA = "http://localhost:3200/api";
