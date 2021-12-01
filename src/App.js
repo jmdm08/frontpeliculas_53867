@@ -1,10 +1,13 @@
 import Routes from "./app/routes/Routes";
+import Header from "./app/componentes/Header";
 
 function App() {
 
   return (
     <>
-      <Routes />
+      <Header>
+        <Routes />
+      </Header>
     </>
   );
 }

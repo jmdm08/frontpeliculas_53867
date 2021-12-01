@@ -18,7 +18,7 @@ export default function DetallePelicula(){
             .catch(function(error){
                 console.log(error);
             });
-    },[]);
+    },[id]);
 
     /*
         1. Datos externos.
