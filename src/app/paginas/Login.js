@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 import * as UsuariosService from '../servicios/UsuariosService';
 
-export default function Login(){
+export default function Login(props){
     const [usuario, setUsuario] = useState('');
     const [clave, setClave] = useState('');
     let history = useHistory();
@@ -28,7 +28,7 @@ export default function Login(){
                         roles : resultadosUsuarios.datos.roles
                     }
                     localStorage.setItem("auth", JSON.stringify(datosUsuario) );
-                    
+                    props.autenticado(datosUsuario);
                     history.push("/administrar");
                 }
             })

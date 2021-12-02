@@ -1,13 +1,11 @@
 import Routes from "./app/routes/Routes";
-import Header from "./app/componentes/Header";
+// REACT REDUX.
 
 function App() {
 
   return (
     <>
-      <Header>
-        <Routes />
-      </Header>
+      <Routes />
     </>
   );
 }
