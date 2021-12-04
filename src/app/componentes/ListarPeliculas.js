@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import * as PeliculasService from '../servicios/PeliculasService'
 
-export default function ListarPeliculas(){
+export default function ListarPeliculas(props){
     const [peliculas, setPeliculas] = useState([]);
 
     useEffect(()=>{
@@ -23,6 +23,7 @@ export default function ListarPeliculas(){
         const idPelicula = evento.target.value;
         switch(buton){
             case 'btnEditar':
+                props.onClickEditar(idPelicula);
             break;
 
             case 'btnEliminar':
@@ -30,7 +31,7 @@ export default function ListarPeliculas(){
                     .then(function(resultadoEliminacion){
                         if(resultadoEliminacion.datos.acknowledged){
                             setPeliculas( peliculasActual => (
-                                peliculasActual.filter(pelicula => pelicula._id != idPelicula)
+                                peliculasActual.filter(pelicula => pelicula._id !== idPelicula)
                             ));
                         }
                     })
@@ -69,6 +70,5 @@ export default function ListarPeliculas(){
                 </tbody>
             </table>
         </>
-    )
-
+    );
 }

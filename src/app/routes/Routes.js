@@ -9,9 +9,12 @@ import Login from "../paginas/Login";
 export default function Routes(){
     const auth = localStorage.getItem('auth');
     const [usuario, setUsuario] = useState(auth);
+    /*
+        A == 2 ? TRUE : FALSE; 
+    */  
 
     return(
-        <Switch>
+        <Switch>        
             <Header usuario={usuario} autenticado={setUsuario}>
                 <Route exact path="/" component={ResultadosBusqueda} />
                 <Route path="/detalle/:id" component={DetallePelicula} />
@@ -19,7 +22,7 @@ export default function Routes(){
                     {usuario ? <AdministrarPeliculas /> : <Redirect to="/login" />}
                 </Route>
                 <Route path="/login">
-                     <Login autenticado={setUsuario} />
+                    <Login autenticado={setUsuario} />
                 </Route>
             </Header>
         </Switch>
